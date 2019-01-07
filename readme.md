@@ -14,6 +14,9 @@
 
   prisma deploy
 
+  // 第三部， 生成prisma client代码
+  prisma generate
+
 ```
 
 - npm install
