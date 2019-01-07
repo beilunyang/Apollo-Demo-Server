@@ -3,10 +3,10 @@ projects:
     schemaPath: src/graphql/schema.graphql
     extensions:
       endpoints:
-        user: http://localhost:4700
+        user: http://localhost:4800
   db:
     schemaPath: src/generated/generated-schema/prisma.graphql
     extensions:
       prisma: prisma/prisma.yml
       endpoints:
-        default: 'http://localhost:4466/sufa'
+        default: 'http://localhost:4466/auth'

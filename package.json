@@ -1,5 +1,5 @@
 {
-  "name": "sufa-server",
+  "name": "apollo-demo-server",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon -e js,graphql --exec babel-node -- ./src/index.js"
   },
