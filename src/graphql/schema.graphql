@@ -1,0 +1,81 @@
+# import Query.usersConnection, UserPermission, UserConnection, UserWhereInput, UserOrderByInput from "../generated/graphql-schema/prisma.graphql"
+
+scalar DateTime
+scalar Long
+
+type User {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  phone: String
+  userName: String
+  childName: String
+  avatar: String
+  remark: String
+  userStatus: Int
+  userRole: Int
+  expiredAt: DateTime
+  deletedAt: DateTime
+  forbiddenAt: DateTime
+  isChildAccount: Boolean
+  childAccountForbiddenAt: DateTime
+  childAccountForbidden: Boolean
+  childAccountDeletedAt: DateTime
+  childAccountDeleted: Boolean
+  allowEdit: Boolean
+  parentAccount: User
+  childAccounts(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [User]
+}
+
+type AuthPayload {
+  access_token: String!
+  refresh_token: String
+  expires_in: Int!
+  user_id: String!
+  avatar: String
+  user_name: String
+  user_role: String
+  is_child_account: Boolean
+  allow_edit: Boolean
+}
+
+type Query {
+  me: User
+  checkToken: Boolean
+  childAccountsConnection(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): UserConnection
+}
+
+type Mutation {
+  # 只注册
+  register(phone: String!, code: String!, password: String!): AuthPayload!
+
+  # 密码登录
+  login(phone: String!, password: String!): AuthPayload!
+
+  # 获取短信验证码
+  createVerificationCode(phone: String!, codeType: Int!): Boolean
+
+  # 忘记密码
+  forgetPassword(phone: String!, code: String!, password: String!): AuthPayload!
+}
+
+type Subscription {
+  subAppName: String
+  login(userId: ID!): ID!
+}

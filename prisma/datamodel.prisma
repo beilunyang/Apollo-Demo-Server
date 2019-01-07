@@ -1,0 +1,82 @@
+type User {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  phone: String
+  password: String
+  salt: String
+  userName: String
+  nickName: String
+  childName: String
+  openId: String
+  unionId: String
+  birthday: DateTime
+  avatar: String
+  country: String
+  province: String
+  city: String
+  language: String
+  sessionKey: String
+  remark: String
+  gender: Int
+  deletedAt: DateTime
+  forbiddenAt: DateTime
+  userStatus: Int @default(value: "0")
+  userRole: Int @default(value: "0")
+  isChildAccount: Boolean @default(value: "false")
+  childAccountForbiddenAt: DateTime
+  childAccountForbidden: Boolean @default(value: "false")
+  childAccountDeletedAt: DateTime
+  childAccountDeleted: Boolean @default(value: "false")
+  allowEdit: Boolean @default(value: "false")
+  expiredAt: DateTime
+  childAccounts: [User!]! @relation(name: "ParentAccount")
+  parentAccount: User @relation(name: "ParentAccount")
+
+  refreshTokens: [UserRefreshToken!]!
+}
+
+type VerificationCode {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  expiredAt: DateTime!
+  code: String!
+  codeType: Int
+  phone: String!
+}
+
+type UserRefreshToken {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  expiredAt: DateTime!
+  refreshToken: String! @unique
+  owner: User!
+}
+
+type LogError {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  args: Json
+  resolver: String
+  errorMsg: String
+  errorType: String
+  errorCode: Int
+  errorArgs: Json
+  logSession: LogSession
+}
+
+type LogSession {
+  # Core
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # Fields
+  args: Json
+  ipAddress: String
+  logError: LogError
+  origin: String!
+  resolver: String!
+}

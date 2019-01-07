@@ -1,0 +1,8 @@
+endpoint: http://localhost:4466/auth
+datamodel: datamodel.prisma
+# secret: prisma-secret 生产环境才开启
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-client/
+  - generator: graphql-schema
+    output: ../src/generated/graphql-schema/
